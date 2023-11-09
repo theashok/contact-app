@@ -1,0 +1,73 @@
+import React from "react";
+import { useForm } from "react-hook-form";
+import "./styles.css";
+
+export default function CreateContact() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
+  return (
+    <div className="App">
+      <form onSubmit={handleSubmit(onSubmit)}>
+      <div className="form-control">
+          <label>First Name</label>
+          <input
+            type="text"
+            name="firstname"
+            {...register("firstname", {
+              required: "firstname is required.",
+              pattern: {
+                value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                message: "firstname is not valid."
+              }
+            })}
+          />
+          {errors.firstname && <p className="errorMsg">{errors.firstname.message}</p>}
+        </div>
+        <div className="form-control">
+          <label>last Name</label>
+          <input
+            type="text"
+            name="lastname"
+            {...register("lastname", {
+              required: "lastname is required.",
+              pattern: {
+                value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                message: "lastname is not valid."
+              }
+            })}
+          />
+          {errors.lastname && <p className="errorMsg">{errors.lastname.message}</p>}
+        </div>
+            
+        <div className="form-control">
+          <label>Email</label>
+          <input
+            type="text"
+            name="email"
+            {...register("email", {
+              required: "Email is required.",
+              pattern: {
+                value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                message: "Email is not valid."
+              }
+            })}
+          />
+          {errors.email && <p className="errorMsg">{errors.email.message}</p>}
+        </div>
+        
+        <div className="form-control">
+          <label></label>
+          <button type="submit">Create Contact</button>
+        </div>
+      </form>
+    </div>
+  );
+}
